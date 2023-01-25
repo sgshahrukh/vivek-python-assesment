@@ -1,0 +1,111 @@
+Instructions
+
+1. Implement the Python code for as many problems as possible that are given below.
+2. You can upload the implemented code to your own git repo and then share the git repo access.
+3. If you have any doubts or questions then let me know.
+
+
+##############################################################################################################################################
+
+
+Q1. Write a program that reads in all the lines of the file (take any random or article from wikipedia), and then create a dictionary, where the key is the line number and value is another dictionary. This another dictionary should contain length of the words as keys, and the number of words having same length as values.
+
+    Example, first line in the file: "The quick brown fox jumps over the lazy dog"
+
+    output - {
+    1: {
+    		3: 4  # This is comment for explaination. There are four words having 3 chars - the, fox, the, dog
+    		5: 3  # This is comment for explaination. There are 3 words having 5 chars - quick, brown, jumps
+    		4: 2  # This is comment for explaination. There are 2 words having 4 chars - over, lazy
+    	}
+    }
+
+
+##############################################################################################################################################
+
+Q2. Write a decorator that measures the execution time of a function and logs the result to a file.
+
+
+##############################################################################################################################################
+
+
+Q3. Write a generator function that yields the next prime number on each iteration.
+
+Sample Input output
+
+Input: 5
+Output: [2, 3, 5, 7, 11]
+
+Input: 10
+Output: [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
+
+
+
+##############################################################################################################################################
+
+
+Q4. Write a function that takes a list of strings and returns a new list with all strings that are anagrams of a palindrome (i.e., a word or phrase that can be rearranged to form a palindrome). If you can use list comprehension then it will be better.
+
+
+Sample Input output
+
+Input: ['racecar', 'hello', 'level', 'carcare', 'carecar', 'civic', 'lehol', 'vicic']
+Output: ['carcare', 'carecar', 'vicic']
+
+Explanation - carecar and carecar are anagrams of a palindrome racecar. vicic is an anagram of palindrome civic. lehol is anagram of hello, but hello is not a palindrome, hence lehol is not in the output.
+
+
+##############################################################################################################################################
+
+
+Q5. Write a function or lambda function (preferably) that takes a list of strings and returns a new list with all strings sorted in descending order of length.
+
+Input: ["dog", "cat", "bird"]
+Output: ['bird', 'cat', 'dog']
+
+Input: ["python", "java", "c++"]
+Output: ["python", "java", "c++"]
+
+
+##############################################################################################################################################
+
+Q6. Write a function that reads in a CSV file and returns a list of dictionaries, where each dictionary represents a row in the CSV file with the keys being the column names and the values being the cell values.
+
+Example
+
+Input: CSV file containing the following data:
+       id,name,age
+       1,Alice,20
+       2,Bob,25
+       3,Charlie,30
+Output: [{'id': '1', 'name': 'Alice', 'age': '20'},
+         {'id': '2', 'name': 'Bob', 'age': '25'},
+         {'id': '3', 'name': 'Charlie', 'age': '30'}]
+
+
+##############################################################################################################################################
+
+
+Q7. Write a function that takes a list of numbers and returns the sum of the numbers that are divisible by 3 or 5. The function should use a generator expression to accomplish this.
+
+
+Input: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+Output: 33
+
+Input: [0, 15, 30, 45, 60, 75, 90, 105]
+Output: 330
+
+
+##############################################################################################################################################
+
+Q8. Write a function that handles the ValueError exception that may be raised when trying to convert a string to an integer. The function should prompt the user to enter a new string until a valid integer is entered.
+
+Input: '3'
+Output: 3
+
+Input: 'abc'
+Output: ValueError exception handled, new input prompted.
+
+
+##############################################################################################################################################
+

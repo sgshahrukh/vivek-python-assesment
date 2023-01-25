@@ -1,0 +1,1 @@
+Function get_sum_of_square_numbers(10,) {} Took 0.0000 seconds
