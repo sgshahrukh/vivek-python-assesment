@@ -4,6 +4,7 @@ import time
 from itertools import islice
 from math import sqrt
 from collections import defaultdict
+import csv
 
 
 # Q1. Write a program that reads in all the lines of the file
@@ -115,10 +116,51 @@ def list_for_descending_order_string(list_to_sort):
     list_to_sort.sort(key=len, reverse=True)
     print(list_to_sort)
 
+
+# Q6. Write a function that reads in a CSV file and returns a list of dictionaries,
+# where each dictionary represents a row in the CSV file with the keys being the column names and
+# the values being the cell values.
+def read_csv(file_name):
+    with open(file_name, "r") as f:
+        reader = csv.DictReader(f)
+        formatted_list = list(reader)
+    print(formatted_list)
+
+
+# Q7. Write a function that takes a list of numbers and returns the sum of the numbers that are divisible by 3 or 5.
+# The function should use a generator expression to accomplish this.
+def divisble_numbers(list_of_nums, total=0):
+    if list_of_nums:
+        for num in list_of_nums:
+            if num % 3 == 0 or num % 5 == 0:
+                yield total + num
+
+def sum_of_divisble_numbers(list_of_nums, total=0):
+    nums = divisble_numbers(list_of_nums)
+    for num in nums:
+        total += num
+    print('The sum of all the nos. divisible by 3 or 5 is: ', total)
+
+
+# Q8. Write a function that handles the ValueError exception that may be raised
+# when trying to convert a string to an integer.
+# The function should prompt the user to enter a new string until a valid integer is entered.
+def convert_string_to_int(msg="Please enter a number: "):
+    input_data = input(msg)
+    try:
+        num = int(input_data)
+        print(num)
+    except ValueError:
+        # Handle the exception
+        convert_string_to_int("Please enter a valid number: ")
+
+
+
+
 ##################################################### Calling of various functions to show result of various questions
 
 # Q1
-#word_calculator("lorem.txt")
+# word_calculator("lorem.txt")
 
 # Q2
 # if __name__ == '__main__':
@@ -137,3 +179,13 @@ def list_for_descending_order_string(list_to_sort):
 # list_to_sort = ["dog", "cat", "bird"]
 # list_to_sort = ["python", "java", "c++"]
 # list_for_descending_order_string(list_to_sort)
+
+# Q6
+# read_csv("sample.csv")
+
+# Q7
+# sum_of_divisble_numbers([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+# sum_of_divisble_numbers([0, 15, 30, 45, 60, 75, 90, 105])
+
+# Q8
+convert_string_to_int()
