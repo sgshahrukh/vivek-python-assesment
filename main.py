@@ -1,9 +1,7 @@
-from collections import Counter
 from functools import wraps
 import time
 from itertools import islice
 from math import sqrt
-from collections import defaultdict
 import csv
 
 
@@ -12,29 +10,27 @@ import csv
 # This another dictionary should contain length of the words as keys, and the number of words having same length as values.
 
 ## Program to calculate the word calculator
-def word_calculator(fileName):
-    dict_obj = {}
-    with open(fileName) as f:
-        for key, line in enumerate(f):
-            # (key, val) = line.split()
-            # dictObj[int(key)] = val
+def word_length_count(file_name):
+    results = {}
+    # Open the file for reading
+    with open(file_name, 'r') as file:
+        # Iterate through the lines of the file
+        for line_number, line in enumerate(file):
+            line = line.strip()
             words = line.split()
-            words_count = Counter(words)
-            word_dict = {}
-
-            for word_index, word in enumerate(words_count):
-                # word_dict = {
-                #     len(word): (word_index + 1)
-                # }
-                # print(len(word))
-
-                if len(word) in word_dict:
-                    word_dict[len(word)].append(len(word))
+            word_lengths = {}
+            # Iterate through the words
+            for word in words:
+                length = len(word)
+                # If the length is already a key in the dictionary, increment the count
+                if length in word_lengths:
+                    word_lengths[length] += 1
+                # Otherwise, add the length as a new key with a count of 1
                 else:
-                    word_dict[len(word)] = [len(word)]
-
-            dict_obj[int(key + 1)] = word_dict
-    print(dict_obj)
+                    word_lengths[length] = 1
+            # Add the line number and word length counts dictionary to the results dictionary
+            results[line_number] = word_lengths
+    print(results)
 
 
 # Q2. Write a decorator that measures the execution time of a function and logs the result to a file.
@@ -55,10 +51,7 @@ def timeit(func):
     return timeit_wrapper
 
 @timeit
-def get_sum_of_square_numbers(num):
-    """
-    Simple function that returns sum of all numbers up to the square of num.
-    """
+def get_sum_of_square_numbers_to_calculate_execution_time(num):
     total = sum((x for x in range(0, num**2)))
     return total
 
@@ -95,26 +88,35 @@ def print_prime_numbers(num):
 # Q4. Write a function that takes a list of strings and returns a new list with all strings that are anagrams of a palindrome
 # (i.e., a word or phrase that can be rearranged to form a palindrome).
 # If you can use list comprehension then it will be better.
-def get_anagrams(source):
-    d = defaultdict(list)
-    for word in source:
-        key = "".join(sorted(word))
-        d[key].append(word)
-    return d
-def print_anagrams(input):
-    d = get_anagrams(input)
-    print(d)
-    for key, anagrams in enumerate(d):
-        if len(anagrams) > 1:
-            print(key, anagrams)
+def anagram_of_palindrome(strings):
+    def is_anagram_of_palindrome(string):
+        char_count = {}
+        # Iterate through the string, updating the count of each character
+        for char in string:
+            if char in char_count:
+                char_count[char] += 1
+            else:
+                char_count[char] = 1
+        odd_count = 0
+        # Iterate through the dictionary, counting the number of characters with odd counts
+        for count in char_count.values():
+            if count % 2 != 0:
+                odd_count += 1
+        # Return true if the string is an anagram of a palindrome, otherwise false
+        return odd_count <= 1
+    anagrams = []
+    # Iterate through the input list, checking each string
+    for string in strings:
+        if is_anagram_of_palindrome(string):
+            anagrams.append(string)
+    print(anagrams)
 
 
 # Q5. Write a function or lambda function (preferably) that takes a list of strings and returns a new list
 # with all strings sorted in descending order of length.
 def list_for_descending_order_string(list_to_sort):
-    # list_to_sort = sorted(list_to_sort,key=lambda l:l[0], reverse=True)
-    list_to_sort.sort(key=len, reverse=True)
-    print(list_to_sort)
+    sorted_list = sorted(list_to_sort, key=lambda x: len(x), reverse=True)
+    print(sorted_list)
 
 
 # Q6. Write a function that reads in a CSV file and returns a list of dictionaries,
@@ -160,32 +162,33 @@ def convert_string_to_int(msg="Please enter a number: "):
 ##################################################### Calling of various functions to show result of various questions
 
 # Q1
-# word_calculator("lorem.txt")
+word_length_count("lorem.txt")
 
 # Q2
-# if __name__ == '__main__':
-#     get_sum_of_square_numbers(10)
+if __name__ == '__main__':
+    get_sum_of_square_numbers_to_calculate_execution_time(10)
 
 # Q3
-# num = input('Please enter any number upto which you want to generate prime nos.')
-# if num:
-#     print_prime_numbers(int(num))
+num = input('Please enter any number upto which you want to generate prime nos.: ')
+if num:
+    print_prime_numbers(int(num))
 
 # Q4
-# input_list = ['racecar', 'hello', 'level', 'carcare', 'carecar', 'civic', 'lehol', 'vicic']
-# print_anagrams(input_list)
+input_list = ['racecar', 'hello', 'level', 'carcare', 'carecar', 'civic', 'lehol', 'vicic']
+anagram_of_palindrome(input_list)
 
 # Q5
-# list_to_sort = ["dog", "cat", "bird"]
-# list_to_sort = ["python", "java", "c++"]
-# list_for_descending_order_string(list_to_sort)
+list_to_sort = ["dog", "cat", "bird"]
+list_for_descending_order_string(list_to_sort)
+list_to_sort = ["python", "java", "c++"]
+list_for_descending_order_string(list_to_sort)
 
 # Q6
-# read_csv("sample.csv")
+read_csv("sample.csv")
 
 # Q7
-# sum_of_divisble_numbers([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-# sum_of_divisble_numbers([0, 15, 30, 45, 60, 75, 90, 105])
+sum_of_divisble_numbers([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+sum_of_divisble_numbers([0, 15, 30, 45, 60, 75, 90, 105])
 
 # Q8
 convert_string_to_int()
